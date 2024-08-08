@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 
 import java.util.List;
 
-//BEGIN - Update entity class to Lombok to decrease boilerplate
+//BEGIN - Update entity class with Lombok to decrease boilerplate
 //...
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
