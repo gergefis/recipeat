@@ -24,5 +24,10 @@ public class RecipeRestController {
 		return ResponseEntity.ok(recipeService.getRecipesByName(mealName));
 	}
 
+	@GetMapping("/saganaki")
+	public ResponseEntity<?> callEndpointData(){
+		return ResponseEntity.ok(recipeService.getData());
+	}
+
 //	TODO Create mapping for CRUD
 }
