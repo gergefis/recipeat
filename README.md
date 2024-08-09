@@ -1,7 +1,7 @@
 
 -- Το συγκεκριμένο  Project Βρίσκεται σε αρχικό στάδιο. Έχω χρησιμοποιήσει Spring Boot  ...  --
 
----  Δημιουργήθηκε με EntityManager  ---
+---  Δημιουργήθηκε με **EntityManager**  ---
 
 Τα δεδομένα τα τραβάω απο το https://themealdb.com/api.php
 
