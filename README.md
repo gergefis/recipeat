@@ -1,7 +1,7 @@
 
 - Το Project Βρίσκεται σε αρχικό στάδιο.
 -- Δημιουργήθηκε με Spring Boot kai thymeleaf template ... 
----  Χρησιμοποίησα backend λογική του **EntityManager**  
+---  Χρησιμοποίησα backend λογική με **EntityManager**  
 
 Τα δεδομένα τα παίρνω απο το https://themealdb.com/api.php
 
