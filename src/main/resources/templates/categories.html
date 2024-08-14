@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<h1>Πατήστε για να δείτε τις κατηγορίες</h1>
+
+<form action="#" method="get">
+    <label for="category-select">Επιλέξτε κατηγορία:</label>
+    <select name="category" id="category-select">
+        <option value="">--Παρακαλώ επιλέξτε--</option>
+
+        <!-- Δημιουργία της drop-down λίστας από τις κατηγορίες -->
+        <th:block th:each="category : ${categories}">
+            <option th:value="${category.strCategory}" th:text="${category.strCategory}"></option>
+        </th:block>
+
+    </select>
+    <button type="submit">Υποβολή</button>
+</form>
+
+</body>
+</html>
