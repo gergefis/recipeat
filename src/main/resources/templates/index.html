@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html mlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipeat App - Search your Meal</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+
+</head>
+<body>
+<div class="container">
+    <h1>Meal Search</h1>
+    <p class="description">Enter the name of the meal and click the search button to find recipes.</p>
+    <form class="search-form" action="/api/recipes" method="get">
+        <input type="text" name="meal" placeholder="Enter the name of the recipe" required>
+        <button type="submit">Search</button>
+    </form>
+    <form class="search-form" action="/api/categories" method="get">
+        <p>Click to see the categories</p>
+        <button onclick="submit">Categories</button>
+    </form>
+
+    <h1>Click to see the categories</h1>
+
+    <form class="search-form" action="#" method="get">
+        <label for="category-select"></label>
+        <select name="category" id="category-select">
+            <option value="">-- Please select --</option>
+
+            <!-- Χρήση του Thymeleaf για να δημιουργήσετε τις επιλογές της drop-down λίστας -->
+            <th:block th:each="category : ${categories}">
+                <option th:value="${category.strCategory}" th:text="${category.strCategory}"></option>
+            </th:block>
+
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+
+</div>
+</body>
+</html>

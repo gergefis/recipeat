@@ -1,4 +1,4 @@
-package com.mysite.demo.app.recipeat.entity;
+package com.mysite.demo.app.recipeat.rest;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -50,8 +50,6 @@ public class MealResponse {
 	}
 }
 //	END - Update entity class to Lombok to decrease boilerplate
-
-
 
 
 
@@ -336,3 +334,7 @@ public class MealResponse {
 	}
 }
 */
+
+//*********************************************
+//***********************************************
+
