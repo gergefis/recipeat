@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="'You have search for ' + ${#strings.capitalize(param.mealName)}"></title>
+    <title th:text="'You searched for ' + ${#strings.capitalize(param.mealName)}"></title>
     <link rel="stylesheet" th:href="@{/style.css}" />
 
 </head>
@@ -11,7 +11,7 @@
     <div>
         <h1>Recipe Results</h1>
 
-    <pre th:text="'At :' + ${theDate}"></pre>
+    <pre th:text="' :' + ${theDate}"></pre>
 
         <h1 th:text="${param.theMeal}"></h1>
 
