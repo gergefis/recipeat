@@ -1,26 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <title th:text="${#strings.capitalize(param.categories)}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div class="container">
 <h1>Πατήστε για να δείτε τις κατηγορίες</h1>
 
-<form action="#" method="get">
-    <label for="category-select">Επιλέξτε κατηγορία:</label>
+
+<form class="search-form" th:action="@{/fetchMealNameByCategory}" method="get">
+    <label for="category-select"> </label>
     <select name="category" id="category-select">
-        <option value="">--Παρακαλώ επιλέξτε--</option>
+        <option value="">-- Please select --</option>
 
         <!-- Δημιουργία της drop-down λίστας από τις κατηγορίες -->
         <th:block th:each="category : ${categories}">
             <option th:value="${category.strCategory}" th:text="${category.strCategory}"></option>
         </th:block>
-
     </select>
+
+    <!--TODO - Tomorrow 24/08/24-->
     <button type="submit">Υποβολή</button>
+
+    <div th:each="meal : ${theMeal}">
+        <p th:text="${meal.strMeal}"></p>
+    </div>
+
 </form>
+
+</div>
 
 </body>
 </html>
