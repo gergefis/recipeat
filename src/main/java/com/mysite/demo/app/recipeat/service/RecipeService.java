@@ -31,6 +31,11 @@ public class RecipeService {
 		restTemplate = theRestTemplate;
 	}
 
+//	Logging info
+private void logApiResponse(Object response) {
+	log.info("Output for API: {}", response);
+}
+
 	//	public ResponseEntity<MealResponse> getRecipesByName(@RequestParam String name) {
 	public MealResponse getRecipesByName(@RequestParam String name) {
 
@@ -42,7 +47,7 @@ public class RecipeService {
 //			******* Επιλέγω ποια στοιχεία θα φέρω μέσα από την κλάση MealResponse
 //			ResponseEntity<MealResponse> jsonResponse = restTemplate.getForEntity(fullUri, MealResponse.class);
 //			********
-			log.info("Output for a API: {}", jsonResponse.getBody());
+			logApiResponse(jsonResponse);
 			// Επιστροφή των αποτελεσμάτων
 			return jsonResponse.getBody();
 		} catch (Exception e) {
@@ -60,7 +65,7 @@ public CategoryResponse getCategory() {
 			// Κλήση του εξωτερικού API
 			ResponseEntity<CategoryResponse> jsonResponse = restTemplate.getForEntity(catBaseUri, CategoryResponse.class);
 //			******* Επιλέγω ποια στοιχεία θα φέρω μέσα από την κλάση MealResponse
-			log.info("Output for API: {}", jsonResponse.getBody());
+			logApiResponse(jsonResponse);
 
 			// Επιστροφή των αποτελεσμάτων
 			return jsonResponse.getBody();
@@ -78,9 +83,8 @@ public CategoryResponse getCategory() {
 			String searchFullUri = searchBaseUri + name;
 
 			// Κλήση του εξωτερικού API
-			MealResponse jsonResponse = restTemplate.getForObject(searchBaseUri, MealResponse.class);
-//			******* Θα Επιλέξω ποια στοιχεία θα φέρω μέσα από την κλάση MealResponse
-			log.info("Output for API: {}", jsonResponse);
+			MealResponse jsonResponse = restTemplate.getForObject(searchFullUri, MealResponse.class);
+			logApiResponse(jsonResponse);
 
 			// Επιστροφή των αποτελεσμάτων
 			return jsonResponse;
