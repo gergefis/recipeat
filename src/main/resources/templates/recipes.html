@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Category</title>
+    <link rel="stylesheet" th:href= "@{css/style.css}"/>
+
+</head>
+<body>
+
+<div class="container">
+<h1>We are Ready to Cook</h1>
+
+<p>You have searched for the <span th:text="${param.mealName}"></span> recipe. </p>
+    <form class="search-form" action="">
+    <div th:if="${strMeal != null}">
+        <span th:text="'You can search one off the follow recipes from category ' + ${category} + ${strMeal}"></span>
+    </div>
+    <div th:if="${strMeal == null}">
+        <p>No results found for this meal.</p>
+    </div>
+    </form>
+</div>
+
+
+</body>
+</html>
