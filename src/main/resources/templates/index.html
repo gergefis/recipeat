@@ -42,31 +42,51 @@
 
 <div class="container">
     <h1>Meal Search</h1>
+
+    <!--   BEGIN - Search for the meal -->
     <p class="description">Enter the name of the meal and click the search button to find recipes.</p>
-    <form class="search-form" action="/api/recipes" method="get">
-        <input type="text" name="meal" placeholder="Enter the name of the recipe" required>
+    <form class="search-form" th:action="@{/processForm}" method="get">
+        <label>
+            <input type="text" name="mealName" placeholder="Enter the name of the recipe" required>
+        </label>
         <button type="submit">Search</button>
     </form>
-    <form class="search-form" action="/api/categories" method="get">
+<!--   END - Search for the meal -->
+
+<!--   BEGIN - Select category by Button -->
+    <form class="search-form" action="categories" method="get">
         <p>Click the button to see the categories.</p>
         <button class="btn btn-info" onclick="submit">Categories</button>
     </form>
+<!--   END - Select category by Button -->
 
-    <h1>Select a category to view the recipes.</h1>
+<!--   BEGIN - Select category by Drop-Down Menu -->
+    <h2>Select a category to view the recipes.</h2>
 
-    <form class="search-form" action="#" method="get">
+    <form class="search-form" th:action="@{/fetchMealNameByCategory}" method="get">
+
         <label for="category-select"></label>
         <select name="category" id="category-select">
             <option value="">-- Please select --</option>
 
-            <!-- Χρήση του Thymeleaf για να δημιουργήσετε τις επιλογές της drop-down λίστας -->
+            <!-- Χρήση του Thymeleaf με foreach για να δημιουργήσετε τις επιλογές της drop-down λίστας -->
             <th:block th:each="category : ${categories}">
                 <option th:value="${category.strCategory}" th:text="${category.strCategory}"></option>
             </th:block>
-
         </select>
-        <button type="submit">Submit</button>
+
+
+
+        <button type="submit" method="get">Submit</button>
+
+        <div th:if="${theMeal != null}">
+            <span th:text="'You can search one off the follow recipes from category ' + ${param.category} + ${theMeal}"></span>
+        </div>
+        <div th:if="${theMeal == null}">
+            <span>No results found for this meal.</span>
+        </div>
     </form>
+<!--   END - Select category by Drop-Down Menu -->
 
 </div>
 </body>

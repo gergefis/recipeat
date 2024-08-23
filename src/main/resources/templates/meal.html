@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'You have search for ' + ${#strings.capitalize(param.mealName)}"></title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+
+</head>
+<body>
+    <div>
+        <h1>Recipe Results</h1>
+
+    <pre th:text="'At :' + ${theDate}"></pre>
+
+        <h1 th:text="${param.theMeal}"></h1>
+
+        <div th:each="meal : ${theMeal}">
+            <p th:text="${meal.strMeal}"></p>
+            <img th:src="${meal.strMealThumb}" alt="Meal Image"/>
+            <p>ID: <span th:text="${meal.idMeal}"></span></p>
+        </div>
+    </div>
+<!-- Εμφάνιση του JSON response -->
+<!--<p th:text="${theMeal}"></p>-->
+
+<!-- TODO - Προσθήκη κουμπιού -->
+<form action="/api-recipes" method="post">
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>
