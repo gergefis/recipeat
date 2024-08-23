@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="'You searched for ' + ${#strings.capitalize(param.mealName)}"></title>
-    <link rel="stylesheet" th:href="@{/style.css}" />
+    <link rel="stylesheet" th:href="@{css/style.css}" />
 
 </head>
 <body>
-    <div>
+    <div class="container">
         <h1>Recipe Results</h1>
 
     <pre th:text="'At :' + ${theDate}"></pre>
@@ -16,9 +16,9 @@
         <h1 th:text="${param.theMeal}"></h1>
 
         <div th:each="meal : ${theMeal}">
-            <p th:text="${meal.strMeal}"></p>
+            <p th:text="${meal.strMeal}"><span th:text="${meal.idMeal}"></span></p>
             <img th:src="${meal.strMealThumb}" alt="Meal Image"/>
-            <p>ID: <span th:text="${meal.idMeal}"></span></p>
+            <p th:text="${meal.strInstructions}"></p>
         </div>
     </div>
 <!-- Εμφάνιση του JSON response -->
