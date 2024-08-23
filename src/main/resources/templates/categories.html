@@ -2,34 +2,49 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${#strings.capitalize(param.categories)}"></title>
+    <title th:text="${#strings.capitalize(param.strCategory)}"></title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/post.css}">
 </head>
 <body>
 <div class="container">
+
 <h1>Πατήστε για να δείτε τις κατηγορίες</h1>
 
-
-<form class="search-form" th:action="@{/fetchMealNameByCategory}" method="get">
+<form class="search-form" th:action="@{/fetchMealNameByCategory}" th:method="get">
+    <input type="hidden" name="source" value="categories">
     <label for="category-select"> </label>
-    <select name="category" id="category-select">
+    <select name="strCategory" id="category-select">
         <option value="">-- Please select --</option>
 
-        <!-- Δημιουργία της drop-down λίστας από τις κατηγορίες -->
+        <!-- Create drop-down list from categories -->
         <th:block th:each="category : ${categories}">
             <option th:value="${category.strCategory}" th:text="${category.strCategory}"></option>
         </th:block>
     </select>
 
     <!--TODO - Tomorrow 24/08/24-->
-    <button type="submit">Υποβολή</button>
-
-    <div th:each="meal : ${theMeal}">
-        <p th:text="${meal.strMeal}"></p>
-    </div>
-
+    <button type="submit">Submit</button>
 </form>
 
+ <!--   <th:block  th:each="meal : ${mealsResults}">
+        <p th:text="${meal.strMeal}"></p>
+    </th:block>-->
+
+    <!-- Display the meals if they exist -->
+    <th:block th:if="${mealsResults != null}">
+    <h3 th:text="'You can search one off the follow recipes from category ' + ${param.strCategory} + ':'"></h3>
+<!--        <h3 th:text="|You can search one of the following recipes from category '${param.strCategory}':|"></h3>-->
+
+        <th:block th:each="meal : ${mealsResults}">
+            <p th:text="${meal.strMeal}"></p>
+        </th:block>
+
+    <!-- Display a message if no results -->
+    <th:block th:if="${mealsResults == null}">
+        <p>No results found for this category.</p>
+    </th:block>
+    </th:block>
 </div>
 
 </body>
