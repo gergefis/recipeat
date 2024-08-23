@@ -2,7 +2,6 @@ package com.mysite.demo.app.recipeat.controller;
 
 import com.mysite.demo.app.recipeat.rest.CategoryResponse;
 import com.mysite.demo.app.recipeat.rest.MealResponse;
-import com.mysite.demo.app.recipeat.rest.RecipeNameByCategoryResponse;
 import com.mysite.demo.app.recipeat.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequiredArgsConstructor  //Lombok: δηλώνει τον Constructor kai ta final field
@@ -36,8 +36,9 @@ public class HomeController {
 		return "index";
 	}
 
+// BEGIN - Fetch the categories name to drop-down list
 	@GetMapping("/categories")
-	public String getCategories(Model model) {
+	public String Categories(Model model) {
 		// Παίρνουμε τις κατηγορίες μέσω του service
 		CategoryResponse categoryResponse = recipeService.getCategory();
 
@@ -47,6 +48,7 @@ public class HomeController {
 		// Επιστρέφουμε το όνομα του template χωρίς την επέκταση .html
 		return "categories";
 	}
+	// END - Fetch the categories name to drop-down list
 
 	@RequestMapping("/showForm")
 	public String showForm() {
@@ -59,7 +61,8 @@ public class HomeController {
 
 		try {
 			LocalDateTime currentDate = java.time.LocalDateTime.now();
-			model.addAttribute("theDate", currentDate);
+			String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy 'on' HH:mm"));
+			model.addAttribute("theDate",formattedDate);
 
 			// Προσθέτουμε τη συνταγή στο μοντέλο για να τις χρησιμοποιήσουμε στο template
 				model.addAttribute("theMeal", mealResponse.getMeals());
@@ -68,22 +71,26 @@ public class HomeController {
 		} catch (Exception e) {
 			log.error(" - Something goes wrong while RETURN Json Object of recipes -",e);
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-					"Exception while RETURN json Object to Model \"meal.html\"", e);
+					"Exception while RETURN json Object to Model \"categories.html\"", e);
 		}
 	}
+
+
 	@RequestMapping("/fetchMealNameByCategory")
-	public String fetchMealNameFromCategory(@RequestParam("strMeal") String strMeal, Model model) {
-		MealResponse strMealResponse = recipeService.getRecipesByCategory(strMeal);
-
-		try {
+	public String fetchMealNameByCategory(
+			@RequestParam("strCategory") String strCategory,
+			@RequestParam("source") String source,
+			Model model) {
+		MealResponse strMealResponse = recipeService.getRecipesByCategory(strCategory);
 			// Προσθέτουμε τη συνταγή στο μοντέλο για να τις χρησιμοποιήσουμε στο template
-			model.addAttribute("strMeal", strMealResponse);
+			model.addAttribute("mealsResults", strMealResponse.getMeals());
 
-			return "categories";
-		}catch (Exception e) {
-			log.error(" - Something goes wrong while getting value from Category Drop-Down menu -",e);
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-					"Exception while RETURN json Object to Model \"index.html\"", e);
-		}
+			if ("index".equals(source)) {
+				return "index";
+			} else if ("categories".equals(source)) {
+				return "categories";
+			} else {
+				throw new IllegalArgumentException("Invalid source parameter");
+			}
 	}
 }
