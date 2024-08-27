@@ -62,11 +62,6 @@ public class HomeController {
 		return categoryResponse.getCategories();
 	}
 
-	@RequestMapping("/showHomePage")
-	public String showHomePage() {
-		return "index";
-	}
-
 	@RequestMapping("/processForm")
 	public String processForm(@RequestParam("mealName") String mealName,
 							  HttpServletRequest request,
