@@ -64,7 +64,6 @@ public class HomeController {
 
 	@RequestMapping("/processForm")
 	public String processForm(@RequestParam("mealName") String mealName,
-							  HttpServletRequest request,
 							  Model model) {
 		MealResponse mealResponse = recipeService.getRecipesByName(mealName);
 
@@ -75,10 +74,8 @@ public class HomeController {
 
 			// Προσθέτουμε τη συνταγή στο μοντέλο για να τις χρησιμοποιήσουμε στο template
 			// read the request parameter from the HTML form
-			String theName = request.getParameter("mealName");
-			// convert the data to all caps
-			String result = theName.toUpperCase();
-			model.addAttribute("theTitle", result);
+			String theTitle = mealName.toUpperCase();
+			model.addAttribute("theTitle", theTitle);
 
 //			Add Meal to the model
 			model.addAttribute("theMeal", mealResponse.getMeals());
