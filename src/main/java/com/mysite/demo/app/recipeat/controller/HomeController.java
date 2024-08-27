@@ -62,6 +62,8 @@ public class HomeController {
 		return categoryResponse.getCategories();
 	}
 
+
+
 	@RequestMapping("/processForm")
 	public String processForm(@RequestParam("mealName") String mealName,
 							  HttpServletRequest request,
