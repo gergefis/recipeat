@@ -18,7 +18,7 @@
         .search-form {
             margin-top: 20px;
         }
-        .search-form input[type="text"] {
+        .search-form input {
             padding: 10px;
             font-size: 1em;
             width: 70%;
@@ -46,4 +46,5 @@
         }
         .search-form button:hover {
             background-color: #0056b3;
+
         }
