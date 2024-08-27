@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Table(name = "meal")
+@Table(name = "meals_app")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @NoArgsConstructor

@@ -1,8 +1,11 @@
 package com.mysite.demo.app.recipeat.controller;
 
+import com.mysite.demo.app.recipeat.entity.User;
 import com.mysite.demo.app.recipeat.rest.CategoryResponse;
+import com.mysite.demo.app.recipeat.rest.CategoryResponse.Category;
 import com.mysite.demo.app.recipeat.rest.MealResponse;
 import com.mysite.demo.app.recipeat.service.RecipeService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +13,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor  //Lombok: δηλώνει τον Constructor kai ta final field
@@ -25,38 +30,47 @@ public class HomeController {
 	@Autowired
 	private final RecipeService recipeService;
 
+//	TODO - Na αφαιρέσω τα διπλότυπα func index και categories
 	@GetMapping("/")
 	public String index(Model model) {
-		CategoryResponse categoryResponse = recipeService.getCategory();
-
 		// Προσθέτουμε τις κατηγορίες στο μοντέλο για να τις χρησιμοποιήσουμε στο template
-		model.addAttribute("categories", categoryResponse.getCategories());
+		model.addAttribute("categories", getCategories());
 
 		// Επιστρέφει το όνομα του template χωρίς την επέκταση .html
 		return "index";
 	}
-
 // BEGIN - Fetch the categories name to drop-down list
 	@GetMapping("/categories")
-	public String Categories(Model model) {
-		// Παίρνουμε τις κατηγορίες μέσω του service
-		CategoryResponse categoryResponse = recipeService.getCategory();
+	public String categories(Model model) {
 
 		// Προσθέτουμε τις κατηγορίες στο μοντέλο για να τις δούμε στη σελίδα
-		model.addAttribute("categories", categoryResponse.getCategories());
+		model.addAttribute("categories", getCategories());
 
-		// Επιστρέφουμε το όνομα του template χωρίς την επέκταση .html
-		return "categories";
+			return "categories";
 	}
 	// END - Fetch the categories name to drop-down list
 
-	@RequestMapping("/showForm")
-	public String showForm() {
+	@GetMapping("/register")
+	public String register(Model model) {
+		model.addAttribute("user", new User());
+		return "user-register";
+	}
+
+	public List<Category> getCategories(){
+		// Παίρνουμε τις κατηγορίες μέσω του service
+		CategoryResponse categoryResponse = recipeService.getCategory();
+		return categoryResponse.getCategories();
+	}
+
+	@RequestMapping("/showHomePage")
+	public String showHomePage() {
 		return "index";
 	}
 
 	@RequestMapping("/processForm")
-	public String processForm(@RequestParam("mealName") String mealName, Model model) {
+	public String processForm(@RequestParam("mealName") String mealName,
+							  HttpServletRequest request,
+							  Model model) {
 		MealResponse mealResponse = recipeService.getRecipesByName(mealName);
 
 		try {
@@ -65,7 +79,14 @@ public class HomeController {
 			model.addAttribute("theDate",formattedDate);
 
 			// Προσθέτουμε τη συνταγή στο μοντέλο για να τις χρησιμοποιήσουμε στο template
-				model.addAttribute("theMeal", mealResponse.getMeals());
+			// read the request parameter from the HTML form
+			String theName = request.getParameter("mealName");
+			// convert the data to all caps
+			String result = theName.toUpperCase();
+			model.addAttribute("theTitle", result);
+
+//			Add Meal to the model
+			model.addAttribute("theMeal", mealResponse.getMeals());
 
 			return "meal";
 		} catch (Exception e) {
@@ -76,11 +97,15 @@ public class HomeController {
 	}
 
 
-	@RequestMapping("/fetchMealNameByCategory")
+	@GetMapping("/fetchMealNameByCategory")
 	public String fetchMealNameByCategory(
 			@RequestParam("strCategory") String strCategory,
 			@RequestParam("source") String source,
 			Model model) {
+		// Παίρνουμε τις κατηγορίες μέσω της Func Categories
+		model.addAttribute("categories", getCategories());
+//		##################################################################################
+
 		MealResponse strMealResponse = recipeService.getRecipesByCategory(strCategory);
 			// Προσθέτουμε τη συνταγή στο μοντέλο για να τις χρησιμοποιήσουμε στο template
 			model.addAttribute("mealsResults", strMealResponse.getMeals());
@@ -93,4 +118,9 @@ public class HomeController {
 				throw new IllegalArgumentException("Invalid source parameter");
 			}
 	}
+
+/*	@PostMapping("/saveFormData")
+	public String processForm() {
+		return null;
+	}*/
 }
