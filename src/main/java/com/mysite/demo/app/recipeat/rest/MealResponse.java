@@ -1,6 +1,8 @@
 package com.mysite.demo.app.recipeat.rest;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -9,6 +11,7 @@ import java.util.List;
 
 //BEGIN - Update entity class with Lombok to decrease boilerplate
 //...
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @NoArgsConstructor
@@ -22,7 +25,10 @@ public class MealResponse {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class Meal {
+
+		/*@Id*/
 		private String idMeal;
+
 		private String strMeal;
 		private String strDrinkAlternate;
 		private String strCategory;

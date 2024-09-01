@@ -8,7 +8,6 @@
     <link rel="stylesheet" th:href="@{css/post.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
 
-
 </head>
 <body>
 <!-- Navbar content -->
@@ -24,16 +23,11 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="categories">Categories</a>
+                    <a class="nav-link" th:href="@{/categories}">Categories</a>
                 </li>
-                <!--<li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>-->
             </ul>
-            <form class="d-flex" th:action="@{/processForm}" method="get" role="search">
+
+            <form class="d-flex" th:action="@{/processForm}" method="POST" role="search">
                 <input class="form-control me-2" name="mealName" type="search" placeholder="Enter the name of the recipe" aria-label="Search" required>
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
@@ -41,20 +35,19 @@
     </div>
 </nav>
 
-
     <div class="container">
-        <h1>Recipe Results</h1>
+        <h3>Recipe Results</h3>
     <pre th:text="'At : ' + ${theDate}"></pre>
 
-        <h1 th:text="${param.theMeal}"></h1>
-<!--TODO - Σε περίπτωση που δε βρίσκει συνταγή να επιστρέφει σχετικό μήνυμα-->
-        <div th:each="meal : ${theMeal}">
+<!--        <h2 th:text="${param.mealName}"></h2>-->
+        <!--TODO - Σε περίπτωση που δε βρίσκει συνταγή να επιστρέφει σχετικό μήνυμα-->
 
-                <h2 th:text="${meal.strMeal}"></h2>
+        <th:block th:each="meal : ${theMeal}">
+
+                <h1 th:text="${meal.strMeal}"></h1>
                 <pre th:text="${meal.idMeal}"></pre>
 
-
-            <img th:src="${meal.strMealThumb}" alt="Meal Image"/>
+            <img th:src="${meal.strMealThumb}" alt="Image Title"/>
 <!--            TODO - Insert ingredients and Measure-->
             <ul>
                 <label>
@@ -63,14 +56,23 @@
                 </label>
             </ul>
             <p th:text="${meal.strInstructions}"></p>
-        </div>
-    </div>
-<!-- Εμφάνιση του JSON response -->
-<!--<p th:text="${theMeal}"></p>-->
+
+            <form action="#" th:action="@{/recipes/saveRecipe}" th:object="${theRecipe}"  method="post"> <!-- recipes  th:href-->
+                <input type="hidden" name="idMeal" th:value="${meal.idMeal}" />
+                <input type="hidden" name="strMeal" th:value="${meal.strMeal}" />
+                <input type="hidden" name="strMealThumb" th:value="${meal.strMealThumb}" />
+                <input type="hidden" name="strIngredient1" th:value="${meal.strIngredient1}" />
+                <input type="hidden" name="strIngredient2" th:value="${meal.strIngredient2}" />
+                <input type="hidden" name="strMeasure1" th:value="${meal.strMeasure1}" />
+                <input type="hidden" name="strMeasure2" th:value="${meal.strMeasure2}" />
+                <input type="hidden" name="strInstructions" th:value="${meal.strInstructions}" />
+
+<!-- END - Εμφάνιση του JSON response -->
 
 <!-- TODO - Προσθήκη κουμπιού -->
-<!--<form th:action="/saveFormData" method="post">
-    <button type="submit">Save</button>
-</form>-->
+        <button type="submit" class="btn btn-primary col-2">Save</button>
+    </form>
+        </th:block>
+    </div>
 </body>
 </html>

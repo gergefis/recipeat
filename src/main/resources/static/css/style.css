@@ -1,42 +1,49 @@
- body {
+ /* CSS Reset */
+/* * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }*/
+
+/* body {
             font-family: Arial, sans-serif;
             margin: 20px;
-        }
-        .container {
-            max-width: 800px;
+        }*/
+.container {
+            max-width: 50%;
             margin: 0 auto;
             text-align: center;
-        }
-        h1 {
+h1 {
+            padding: 10px;
             color: #333;
+        }
+        h2 {
+        margin-top: 20px;
         }
         .description {
             margin-bottom: 20px;
             font-size: 1.2em;
             color: #666;
         }
-        .search-form {
+.search-form {
             margin-top: 20px;
         }
-        .search-form input {
-            padding: 10px;
-            font-size: 1em;
-            width: 70%;
-            max-width: 400px;
-        }
+
         /* Προσθήκη στυλ για τη drop-down λίστα */
-        .search-form select {
+.search-form select, input  {
             padding: 10px;
             font-size: 1em;
             width: 70%;
             max-width: 400px;
             border-radius: 5px;
             border: 1px solid #ccc;
+/*
             box-sizing: border-box;
+*/
             background-color: white;
         }
-        .search-form button {
-            padding: 10px 20px;
+.search-form button {
+            padding: 10px;
             font-size: 1em;
             background-color: #007BFF;
             color: #fff;
@@ -44,7 +51,7 @@
             cursor: pointer;
             border-radius: 4px;
         }
-        .search-form button:hover {
+.search-form button:hover {
             background-color: #0056b3;
 
         }

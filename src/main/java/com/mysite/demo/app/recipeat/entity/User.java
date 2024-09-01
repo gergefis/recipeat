@@ -7,19 +7,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "meals_app")
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "user")
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto-generated id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userId")
 	private int id;
 
+	@Column(name = "username")
 	private String username;
+
+	@Column(name = "email")
 	private String email;
+
+	@Column(name = "password")
 	private String password;
 }

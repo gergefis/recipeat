@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Confirmation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{../css/register.css}">
+
+</head>
+<body>
+<div class="confirmation-message">
+    <h2>Your registration is done!</h2>
+    <p>
+        The user <span th:text="${username}"></span> is confirmed.
+    </p>
+    <p>Thank you for registering. You can now log in to your account.</p>
+</div>
+<div class="confirmation-button">
+    <span>
+        Return back to <button class="btn btn-info col-2" type="button" onclick="window.location.href='/'">Homepage</button>
+    </span>
+</div>
+</body>
+</html>
