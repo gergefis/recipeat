@@ -1,16 +1,13 @@
 package com.mysite.demo.app.recipeat;
 
-import com.mysite.demo.app.recipeat.dao.RecipeDao;
-import org.springframework.boot.CommandLineRunner;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-
 @SpringBootApplication
-//@ComponentScan(basePackages = {"com.mysite.demo.app.recipeat"})
 public class RecipeatApplication {
 
 	public static void main(String[] args) {
@@ -22,7 +19,9 @@ public class RecipeatApplication {
 		return restTemplateBuilder.build();
 	}
 
-	private void createMeal(RecipeDao recipeDao){
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 
 }
