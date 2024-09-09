@@ -1,44 +1,98 @@
 package com.mysite.demo.app.recipeat.controller;
 
-import com.mysite.demo.app.recipeat.entity.Recipe;
+import com.mysite.demo.app.recipeat.dto.MealResponse;
+import com.mysite.demo.app.recipeat.service.RecipeDBService;
 import com.mysite.demo.app.recipeat.service.RecipeService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @Slf4j
 @RequestMapping("/recipes")
-@RequiredArgsConstructor
 public class RecipeController {
 
 	private final RecipeService recipeService;
+	private final RecipeDBService recipeDBService;
 
-//	TODO Create mapping for CRUD
-@Transactional
-@PostMapping("/saveRecipe")
-public String addRecipe(@ModelAttribute("theRecipe") Recipe theRecipe, Model model) { //@ModelAttribute("theRecipe")
-	// Κλήση της μεθόδου του service για την αποθήκευση των δεδομένων
-//	theRecipe.getIdMeal();
+	private MealResponse mealResponse;
 
-	try {
-		System.out.println("Recipe object: " + theRecipe);
-
-//		recipeService.save(theRecipe);
-		model.addAttribute("theRecipe", theRecipe);
-
-		return "recipes/test";
-	}catch(Exception e){
-		log.error(" - Something goes wrong while RETURN Json Object of recipes -",e); // Αυτό θα εμφανίσει το σφάλμα στα logs
-		throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-				"Exception while saving recipe", e);
+	@Autowired
+	public RecipeController(RecipeService recipeService, RecipeDBService recipeDBService) {
+		this.recipeService = recipeService;
+		this.recipeDBService = recipeDBService;
 	}
-}
+
+
+	public String localTimeStamp(){
+		LocalDateTime currentDate = java.time.LocalDateTime.now();
+		String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy 'on' HH:mm"));
+		return formattedDate;
+	}
+
+	// Call the external API to fetch the meal
+	public void fetchMeals(String mealName) {
+		mealResponse = recipeService.getRecipesByName(mealName);
+	}
+
+	/**
+	 * Handles POST requests to process a form that submits a meal name.
+	 * The method retrieves recipes based on the provided meal name, formats the current date and meal title,
+	 * and adds these attributes to the model to be used in the view.
+	 *
+	 * @param mealName The name of the meal entered in the form. This is retrieved via the request parameter.
+	 * @param model    The {@code Model} object used to pass data to the view.
+	 * @return         The name of the view template ("meal") to be rendered.
+	 *
+	 * @throws ResponseStatusException If the meal is not found, it throws a {@code ResponseStatusException} with a NOT_FOUND status.
+	 * @throws ResponseStatusException If there is an internal server error during data processing, it throws a {@code ResponseStatusException} with an INTERNAL_SERVER_ERROR status.
+	 */
+	@PostMapping("/processForm")
+	public String processForm(@RequestParam("mealName") String mealName, Model model) {
+//Shows the Local server time
+		model.addAttribute("theDate", localTimeStamp());
+
+		fetchMeals(mealName);
+
+		if (mealResponse == null || mealResponse.getMeals().isEmpty())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, " -- Meal not found -- ");
+
+		try {
+			String theTitle = mealName.toUpperCase();
+			model.addAttribute("theTitle", theTitle);
+			model.addAttribute("theMeal", mealResponse.getMeals());
+
+			return "recipes/meal";
+		} catch (Exception e) {
+			log.error(" - Something goes wrong while RETURNING Json Object of recipes -", e);
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+					"Exception while returning json Object to Model \"meal.html\"", e);
+		}
+	}
+
+	@PostMapping("/saveRecipe")
+	public String saveMeal(/*@RequestParam("mealName") String mealName,*/ Model model) {
+
+//		fetchMeals();
+
+		if (mealResponse != null && !mealResponse.getMeals().isEmpty()) {
+			// Save each meal to the database
+			mealResponse.getMeals().forEach(meal -> {
+				recipeDBService.save(meal);
+			});			model.addAttribute("message", "Meal saved successfully!");
+		} else {
+			model.addAttribute("message", "Meal not found.");
+		}
+
+		return "result";
+	}
 }
