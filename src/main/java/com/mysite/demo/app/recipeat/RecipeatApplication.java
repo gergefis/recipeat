@@ -14,14 +14,6 @@ public class RecipeatApplication {
 		SpringApplication.run(RecipeatApplication.class, args);
 	}
 
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder){
-		return restTemplateBuilder.build();
-	}
 
-	@Bean
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
-	}
 
 }
