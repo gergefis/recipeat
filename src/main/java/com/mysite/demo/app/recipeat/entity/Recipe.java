@@ -1,116 +1,76 @@
 package com.mysite.demo.app.recipeat.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.*;
 
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Table(name = "recipes")
 @NoArgsConstructor
 @AllArgsConstructor
-//@JsonIgnoreType -- TODO -- ignore when field is empty??
-@Data
-@Table(name = "recipes")
+@Getter
+@Setter
 public class Recipe {
+
 	@Id
-	@JsonProperty("idMeal")
-	@Column(name = "idMeal")
+	@Column(name = "id_meal")
 	private String idMeal;
 
-	@JsonProperty("strMeal")
-	@Column(name = "strMeal")
+	@Column(name = "str_meal")
 	private String strMeal;
 
-	@JsonProperty("strDrinkAlternate")
-	@Column(name = "strDrinkAlternate")
-	private String strDrinkAlternate;
+	@Column(name = "str_drink_alternate")
+	private String drinkAlternate;
 
-	@JsonProperty("strCategory")
-	@Column(name = "strCategory")
-	private String strCategory;
+	@Column(name = "str_category")
+	private String category;
 
-	@JsonProperty("strArea")
-	@Column(name = "strArea")
-	private String strArea;
+	@Column(name = "str_area")
+	private String area;
 
-	@JsonProperty("strInstructions")
-	@Column(name = "strInstructions")
-	private String strInstructions;
+	@Column(name = "str_instructions")
+	private String instruction;
 
-	@JsonProperty("strMealThumb")
-	@Column(name = "strMealThumb")
-	private String strMealThumb;
+	@Column(name = "str_meal_thumb")
+	private String mealThumb;
 
-	@JsonProperty("strYoutube")
-	@Column(name = "strYoutube")
-	private String strYoutube;
+	@Column(name = "str_youtube")
+	private String youtube;
 
-	@JsonProperty("strIngredient1")
-	@Column(name = "strIngredient1")
-	private String strIngredient1;
+	@Column(name = "str_ingredient1")
+	private String ingredient1;
+	@Column(name = "str_ingredient2")
+	private String ingredient2;
+	@Column(name = "str_ingredient3")
+	private String ingredient3;
+	@Column(name = "str_ingredient4")
+	private String ingredient4;
+	@Column(name = "str_ingredient5")
+	private String ingredient5;
+	@Column(name = "str_ingredient6")
+	private String ingredient6;
+	@Column(name = "str_ingredient7")
+	private String ingredient7;
+	@Column(name = "str_ingredient8")
+	private String ingredient8;
 
-	@JsonProperty("strIngredient2")
-	@Column(name = "strIngredient2")
-	private String strIngredient2;
-
-	@JsonProperty("strIngredient3")
-	@Column(name = "strIngredient3")
-	private String strIngredient3;
-
-	@JsonProperty("strIngredient4")
-	@Column(name = "strIngredient4")
-	private String strIngredient4;
-
-	@JsonProperty("strIngredient5")
-	@Column(name = "strIngredient5")
-	private String strIngredient5;
-
-	@JsonProperty("strIngredient6")
-	@Column(name = "strIngredient6")
-	private String strIngredient6;
-
-	@JsonProperty("strIngredient7")
-	@Column(name = "strIngredient7")
-	private String strIngredient7;
-
-	@JsonProperty("strIngredient8")
-	@Column(name = "strIngredient8")
-	private String strIngredient8;
-
-	@JsonProperty("strMeasure1")
-	@Column(name = "strMeasure1")
-	private String strMeasure1;
-
-	@JsonProperty("strMeasure2")
-	@Column(name = "strMeasure2")
-	private String strMeasure2;
-
-	@JsonProperty("strMeasure3")
-	@Column(name = "strMeasure3")
-	private String strMeasure3;
-
-	@JsonProperty("strMeasure4")
-	@Column(name = "strMeasure4")
-	private String strMeasure4;
-
-	@JsonProperty("strMeasure5")
-	@Column(name = "strMeasure5")
-	private String strMeasure5;
-
-	@JsonProperty("strMeasure6")
-	@Column(name = "strMeasure6")
-	private String strMeasure6;
-
-	@JsonProperty("strMeasure7")
-	@Column(name = "strMeasure7")
-	private String strMeasure7;
-
-	@JsonProperty("strMeasure8")
-	@Column(name = "strMeasure8")
-	private String strMeasure8;
+	@Column(name = "str_measure1")
+	private String measure1;
+	@Column(name = "str_measure2")
+	private String measure2;
+	@Column(name = "str_measure3")
+	private String measure3;
+	@Column(name = "str_measure4")
+	private String measure4;
+	@Column(name = "str_measure5")
+	private String measure5;
+	@Column(name = "str_measure6")
+	private String measure6;
+	@Column(name = "str_measure7")
+	private String measure7;
+	@Column(name = "str_measure8")
+	private String measure8;
 }
