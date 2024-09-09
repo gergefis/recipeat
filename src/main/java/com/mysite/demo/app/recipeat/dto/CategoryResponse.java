@@ -1,4 +1,4 @@
-package com.mysite.demo.app.recipeat.rest;
+package com.mysite.demo.app.recipeat.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -9,16 +9,14 @@ public class CategoryResponse {
 
 	private List<Category> categories;
 
-	// Default Constructor
 	public CategoryResponse() {
 	}
 
-	// Constructor
 	public CategoryResponse(List<Category> categories) {
 		this.categories = categories;
 	}
 
-	// Getters / Setters
+	// Getter
 	public List<Category> getCategories() {
 		return categories;
 	}
@@ -29,14 +27,12 @@ public class CategoryResponse {
 
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	public static class Category {
-		// Fields
+
 		private String strCategory;
 
-		// Default Constructor
 		public Category() {
 		}
 
-		// Constructor
 		public Category(String strCategory) {
 			this.strCategory = strCategory;
 		}
