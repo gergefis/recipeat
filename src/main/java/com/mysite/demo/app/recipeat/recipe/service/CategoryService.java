@@ -1,8 +1,8 @@
-package com.mysite.demo.app.recipeat.service;
+package com.mysite.demo.app.recipeat.recipe.service;
 
-import com.mysite.demo.app.recipeat.dto.CategoryResponse;
-import com.mysite.demo.app.recipeat.dto.CategoryResponse.*;
-import com.mysite.demo.app.recipeat.dto.MealResponse;
+import com.mysite.demo.app.recipeat.recipe.dto.CategoryResponse;
+import com.mysite.demo.app.recipeat.recipe.dto.CategoryResponse.*;
+import com.mysite.demo.app.recipeat.recipe.dto.MealResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class CategoryService {
 	private final RestTemplate restTemplate;
 	private final RecipeService recipeService;
 
-	private CategoryResponse catJsonResponse;
+	private CategoryResponse categoryResponse;
 
 	@Autowired
 	public CategoryService(RestTemplate restTemplate, RecipeService recipeService) {
@@ -34,7 +34,7 @@ public class CategoryService {
 
 	public void catJsonResponse(){
 		String catFullUri = "https://www.themealdb.com/api/json/v1/1/categories.php";
-		catJsonResponse = restTemplate.getForObject(catFullUri, CategoryResponse.class);
+		categoryResponse = restTemplate.getForObject(catFullUri, CategoryResponse.class);
 	}
 
 	private void logApiResponse(Object response) {
@@ -55,14 +55,11 @@ public class CategoryService {
 //			Call for category Object
 			catJsonResponse();
 
-			logApiResponse(catJsonResponse);
-
-			return catJsonResponse;
-
+			logApiResponse(categoryResponse);
+			return categoryResponse;
 		} catch (Exception e) {
-			log.error(" - Something goes wrong while getting value from API 2-",e);
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-					"Exception while calling endpoint of API", e);
+			recipeService.logErrors(e);
+			return null;
 		}
 	}
 
@@ -88,9 +85,8 @@ public class CategoryService {
 			return jsonResponse;
 
 		} catch (Exception e) {
-			log.error(" - Something goes wrong while getting value from API 3-",e);
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-					"Exception while calling endpoint of API", e);
+			recipeService.logErrors(e);
+			return null;
 		}
 	}
 }
