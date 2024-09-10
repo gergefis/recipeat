@@ -1,4 +1,4 @@
-package com.mysite.demo.app.recipeat.config;
+package com.mysite.demo.app.recipeat.recipe.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
