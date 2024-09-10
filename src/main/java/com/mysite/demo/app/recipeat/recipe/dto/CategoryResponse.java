@@ -1,4 +1,4 @@
-package com.mysite.demo.app.recipeat.dto;
+package com.mysite.demo.app.recipeat.recipe.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
