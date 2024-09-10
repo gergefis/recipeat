@@ -1,6 +1,6 @@
-package com.mysite.demo.app.recipeat.service;
+package com.mysite.demo.app.recipeat.recipe.service;
 
-import com.mysite.demo.app.recipeat.dto.MealResponse;
+import com.mysite.demo.app.recipeat.recipe.dto.MealResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,12 @@ public class RecipeService {
 		return restTemplate.getForObject(fullUri, MealResponse.class);
 	}
 
+	public void logErrors(Exception e){
+		log.error(" - Something goes wrong while getting value from API -",e);
+		throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+				"Exception while calling endpoint of API", e);
+	}
+
 	/**
 	 * Searches for a recipe based on the user's query.
 	 *
@@ -40,9 +46,8 @@ public class RecipeService {
 
 			return jsonResponse;
 		} catch (Exception e) {
-			log.error(" - Something goes wrong while getting value from API 1 -",e);
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-					"Exception while calling endpoint of API", e);
+			logErrors(e);
+			return null;
 		}
 	}
 }
