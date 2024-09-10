@@ -79,12 +79,9 @@ public class RecipeController {
 	}
 
 	@PostMapping("/saveRecipe")
-	public String saveMeal(/*@RequestParam("mealName") String mealName,*/ Model model) {
-
-//		fetchMeals();
+	public String saveMeal(Model model) {
 
 		if (mealResponse != null && !mealResponse.getMeals().isEmpty()) {
-			// Save each meal to the database
 			mealResponse.getMeals().forEach(recipeDBService::save);
 			model.addAttribute("message", "Meal saved successfully!");
 		} else {
