@@ -1,6 +1,6 @@
-package com.mysite.demo.app.recipeat.controller;
+package com.mysite.demo.app.recipeat.recipe.controller;
 
-import com.mysite.demo.app.recipeat.service.CategoryService;
+import com.mysite.demo.app.recipeat.recipe.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
