@@ -1,7 +1,7 @@
-package com.mysite.demo.app.recipeat.controller;
+package com.mysite.demo.app.recipeat.user.controller;
 
-import com.mysite.demo.app.recipeat.entity.User;
-import com.mysite.demo.app.recipeat.service.UserService;
+import com.mysite.demo.app.recipeat.user.entity.User;
+import com.mysite.demo.app.recipeat.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
