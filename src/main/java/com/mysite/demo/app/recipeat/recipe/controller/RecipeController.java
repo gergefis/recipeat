@@ -1,8 +1,8 @@
-package com.mysite.demo.app.recipeat.controller;
+package com.mysite.demo.app.recipeat.recipe.controller;
 
-import com.mysite.demo.app.recipeat.dto.MealResponse;
-import com.mysite.demo.app.recipeat.service.RecipeDBService;
-import com.mysite.demo.app.recipeat.service.RecipeService;
+import com.mysite.demo.app.recipeat.recipe.dto.MealResponse;
+import com.mysite.demo.app.recipeat.recipe.service.RecipeDBService;
+import com.mysite.demo.app.recipeat.recipe.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,9 +73,8 @@ public class RecipeController {
 
 			return "recipes/meal";
 		} catch (Exception e) {
-			log.error(" - Something goes wrong while RETURNING Json Object of recipes -", e);
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-					"Exception while returning json Object to Model \"meal.html\"", e);
+			recipeService.logErrors(e);
+			return null;
 		}
 	}
 
@@ -86,13 +85,11 @@ public class RecipeController {
 
 		if (mealResponse != null && !mealResponse.getMeals().isEmpty()) {
 			// Save each meal to the database
-			mealResponse.getMeals().forEach(meal -> {
-				recipeDBService.save(meal);
-			});			model.addAttribute("message", "Meal saved successfully!");
+			mealResponse.getMeals().forEach(recipeDBService::save);
+			model.addAttribute("message", "Meal saved successfully!");
 		} else {
 			model.addAttribute("message", "Meal not found.");
 		}
-
 		return "result";
 	}
 }
