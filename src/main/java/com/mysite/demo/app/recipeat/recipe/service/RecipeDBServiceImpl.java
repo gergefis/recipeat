@@ -1,9 +1,8 @@
-package com.mysite.demo.app.recipeat.service;
+package com.mysite.demo.app.recipeat.recipe.service;
 
-import com.mysite.demo.app.recipeat.dao.RecipeDAO;
-import com.mysite.demo.app.recipeat.dto.MealResponse;
-import com.mysite.demo.app.recipeat.entity.Recipe;
-import jakarta.persistence.PersistenceContext;
+import com.mysite.demo.app.recipeat.recipe.dao.RecipeDAO;
+import com.mysite.demo.app.recipeat.recipe.dto.MealResponse;
+import com.mysite.demo.app.recipeat.recipe.entity.Recipe;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +23,7 @@ public class RecipeDBServiceImpl implements RecipeDBService{
 	public Recipe save(MealResponse.Meal theMeal) {
 		// Create a new Recipe Entity based on the MealResponse
 		Recipe recipeEntity = modelMapper.map(theMeal, Recipe.class);
-		// Using EntityManager
+
 		return recipeDAO.save(recipeEntity);
 
 	}
