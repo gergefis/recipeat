@@ -1,7 +1,7 @@
-package com.mysite.demo.app.recipeat.controller;
+package com.mysite.demo.app.recipeat.recipe.controller;
 
-import com.mysite.demo.app.recipeat.dto.MealResponse;
-import com.mysite.demo.app.recipeat.service.CategoryService;
+import com.mysite.demo.app.recipeat.recipe.dto.MealResponse;
+import com.mysite.demo.app.recipeat.recipe.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ public class CategoryController {
 
 	/**
 	 * Fetches a list of meal names based on the specified category.
-
+	 *
 	 * @param strCategory The category name to filter by.
 	 * @param source The source parameter indicating the page to be rendered.
 	 * @param model The model object to add attributes to.
