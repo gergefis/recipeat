@@ -1,6 +1,6 @@
-package com.mysite.demo.app.recipeat.dao;
+package com.mysite.demo.app.recipeat.recipe.dao;
 
-import com.mysite.demo.app.recipeat.entity.Recipe;
+import com.mysite.demo.app.recipeat.recipe.entity.Recipe;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
