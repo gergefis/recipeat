@@ -13,7 +13,7 @@
 - Lombok;
 - Spring Web (MVC);
 - Spring Security;
-- - Spring Data JPA;
+- Spring Data JPA;
 - MySQL Driver;
 - Java Mail Sender;
 - Thymeleaf;
