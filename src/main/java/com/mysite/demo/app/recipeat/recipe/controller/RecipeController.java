@@ -32,7 +32,7 @@ public class RecipeController {
 		this.recipeDBService = recipeDBService;
 	}
 
-	public String localTimeStamp(){
+	public String localTimeStamp() {
 		LocalDateTime currentDate = java.time.LocalDateTime.now();
 		String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy 'on' HH:mm"));
 		return formattedDate;
@@ -50,8 +50,7 @@ public class RecipeController {
 	 *
 	 * @param mealName The name of the meal entered in the form. This is retrieved via the request parameter.
 	 * @param model    The {@code Model} object used to pass data to the view.
-	 * @return         The name of the view template ("meal") to be rendered.
-	 *
+	 * @return The name of the view template ("meal") to be rendered.
 	 * @throws ResponseStatusException If the meal is not found, it throws a {@code ResponseStatusException} with a NOT_FOUND status.
 	 * @throws ResponseStatusException If there is an internal server error during data processing, it throws a {@code ResponseStatusException} with an INTERNAL_SERVER_ERROR status.
 	 */
