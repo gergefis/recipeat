@@ -22,8 +22,8 @@ public class CategoryController {
 	 * Fetches a list of meal names based on the specified category.
 	 *
 	 * @param strCategory The category name to filter by.
-	 * @param source The source parameter indicating the page to be rendered.
-	 * @param model The model object to add attributes to.
+	 * @param source      The source parameter indicating the page to be rendered.
+	 * @param model       The model object to add attributes to.
 	 * @return The view name to be rendered.
 	 */
 	@PostMapping("/fetchMealNameByCategory")
