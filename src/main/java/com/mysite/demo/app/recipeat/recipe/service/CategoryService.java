@@ -1,11 +1,10 @@
 package com.mysite.demo.app.recipeat.recipe.service;
 
 import com.mysite.demo.app.recipeat.recipe.dto.CategoryResponse;
-import com.mysite.demo.app.recipeat.recipe.dto.CategoryResponse.*;
+import com.mysite.demo.app.recipeat.recipe.dto.CategoryResponse.Category;
 import com.mysite.demo.app.recipeat.recipe.dto.MealResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
