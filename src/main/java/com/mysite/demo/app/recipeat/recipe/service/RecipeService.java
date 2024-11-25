@@ -18,12 +18,12 @@ public class RecipeService {
 		this.restTemplate = restTemplate;
 	}
 
-	public MealResponse jsonResponse(String fullUri){
+	public MealResponse jsonResponse(String fullUri) {
 		return restTemplate.getForObject(fullUri, MealResponse.class);
 	}
 
-	public void logErrors(Exception e){
-		log.error(" - Something goes wrong while getting value from API -",e);
+	public void logErrors(Exception e) {
+		log.error(" - Something goes wrong while getting value from API -", e);
 		throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
 				"Exception while calling endpoint of API", e);
 	}
