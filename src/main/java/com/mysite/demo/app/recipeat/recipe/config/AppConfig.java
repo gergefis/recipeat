@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 public class AppConfig {
 
 	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder){
+	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
 		return restTemplateBuilder.build();
 	}
 
@@ -18,5 +18,4 @@ public class AppConfig {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
-
 }
