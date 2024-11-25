@@ -5,5 +5,5 @@ import com.mysite.demo.app.recipeat.recipe.entity.Recipe;
 
 //@Service
 public interface RecipeDBService {
-Recipe save(MealResponse.Meal theMeal);
+	Recipe save(MealResponse.Meal theMeal);
 }

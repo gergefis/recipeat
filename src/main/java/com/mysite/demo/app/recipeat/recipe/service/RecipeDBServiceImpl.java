@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class RecipeDBServiceImpl implements RecipeDBService{
+public class RecipeDBServiceImpl implements RecipeDBService {
 
 	private final ModelMapper modelMapper;
 	private final RecipeDAO recipeDAO;
