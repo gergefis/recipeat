@@ -14,8 +14,7 @@ public class UserConfig {
 	private String USER = String.valueOf(UserRole.USER);
 	private String ADMIN = String.valueOf(UserRole.ADMIN);
 
-
-		@Bean
+	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(configurer ->
 				configurer
