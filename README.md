@@ -4,7 +4,7 @@
   της σελίδας TheMealDB σχετικά με στοιχεία γευμάτων.
 
 ## Τεχνολογίες που χρησιμοποιήθηκαν για την εκτέλεση του έργου
--- Δημιουργήθηκε με Spring Boot 3.3.0 και MySQL για το BackEnd κομμάτι. Για το View επέλεξα το thymeleaf για τη δημιουργία HTML σελίδων. CSS και Bootstrap για το style. Κάποιες μικρές λειτουργικότητες με vanilla JavaScript.
+-- Δημιουργήθηκε με Spring Boot 3.3.0, MySQL και Maven για το BackEnd κομμάτι. Για το View επέλεξα το thymeleaf για τη δημιουργία HTML σελίδων. CSS και Bootstrap για το style. Κάποιες μικρές λειτουργικότητες με vanilla JavaScript.
   
 Την επικοινωνία με τη βάση δεδομένων, για την αποθήκευση των συνταγών εφόσων ο χρήστης το επιθυμεί, επέλεξα να την υλοποιήσω με **EntityManager** (αντι του JpaRepository) περισσότερο για σκοπους προσωπικής μάθησης.
 
@@ -12,8 +12,9 @@
 - Spring Boot DevTools;
 - Lombok;
 - Spring Web (MVC);
-- Spring Security;- Spring Data JPA;
-- PostgreSQL Driver;
+- Spring Security;
+- Spring Data JPA;
+- MySQL Driver;
 - Java Mail Sender;
 - Thymeleaf;
 
