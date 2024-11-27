@@ -6,23 +6,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService{
-	private UserDAO userDAO;
-
-	//	Constructors
-	public UserServiceImpl() {
-	}
+	private final UserDAO userDAO;
 
 	@Autowired
 	public UserServiceImpl(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
-//	END - Constructors
+
+	@Override
+	public List<User> findAll(){
+		return userDAO.findAll();
+	}
+
+	@Override
+	public User findById(int userId) {
+		return userDAO.findById(userId);
+	}
 
 	@Transactional
 	@Override
 	public void save(User theUser) {
 		userDAO.save(theUser);
+	}
+
+	@Override
+	public void update(User theUser)  throws RuntimeException{
+			userDAO.update(theUser);
+	}
+
+	@Transactional
+	@Override
+	public void delete(int theId) {
+		userDAO.deleteById(theId);
 	}
 }
