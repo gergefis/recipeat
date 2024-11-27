@@ -42,5 +42,4 @@ public class UserRestController {
 
 		return "Deleted employee id - " + userId;
 	}
-
 }
