@@ -23,7 +23,7 @@ public class pageMapController {
 	}
 
 	//	Return the categories names into drop-down list to Category Page
-	@GetMapping("/categories")
+	@GetMapping("/category")
 	public String categories(Model model) {
 		model.addAttribute("categories", categoryService.getCategoryList());
 		return "categories";
