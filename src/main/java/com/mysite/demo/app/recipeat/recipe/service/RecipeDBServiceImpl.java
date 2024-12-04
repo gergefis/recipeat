@@ -4,6 +4,7 @@ import com.mysite.demo.app.recipeat.recipe.dao.RecipeDAO;
 import com.mysite.demo.app.recipeat.recipe.dto.MealResponse;
 import com.mysite.demo.app.recipeat.recipe.entity.Recipe;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ public class RecipeDBServiceImpl implements RecipeDBService {
 	private final ModelMapper modelMapper;
 	private final RecipeDAO recipeDAO;
 
+	@Autowired
 	public RecipeDBServiceImpl(ModelMapper modelMapper, RecipeDAO recipeDAO) {
 		this.modelMapper = modelMapper;
 		this.recipeDAO = recipeDAO;
