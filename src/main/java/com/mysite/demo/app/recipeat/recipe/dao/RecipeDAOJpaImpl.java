@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RecipeDAOJpaImpl implements RecipeDAO {
-
 	private final EntityManager entityManager;
 
 	@Autowired
