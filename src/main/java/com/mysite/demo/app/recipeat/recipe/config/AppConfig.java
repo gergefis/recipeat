@@ -11,11 +11,13 @@ public class AppConfig {
 
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-		return restTemplateBuilder.build();
+		return restTemplateBuilder.build(); //Todo -  Ambiguous Error
 	}
 
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
+
+
 }
