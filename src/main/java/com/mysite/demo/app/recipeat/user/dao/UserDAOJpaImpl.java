@@ -32,18 +32,19 @@ public class UserDAOJpaImpl implements UserDAO {
 	}
 
 	@Override
+	@Transactional
 	public void save(User theUser) {
 		entityManager.persist(theUser);
 	}
 
-	@Transactional
 	@Override
+	@Transactional
 	public void update(User theUser) {
 		entityManager.merge(theUser);
 	}
 
-	@Transactional
 	@Override
+	@Transactional
 	public void deleteById(int userId) {
 		User user = entityManager.find(User.class, userId);
 		entityManager.remove(user);
