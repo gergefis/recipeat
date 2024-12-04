@@ -1,70 +1,51 @@
 package com.mysite.demo.app.recipeat.user.security.config;
 
-import com.mysite.demo.app.recipeat.user.entity.UserRole;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class UserConfig {
-
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-	private final String USER = String.valueOf(UserRole.USER);
-	private final String MANAGER = String.valueOf(UserRole.MANAGER);
-	private final String ADMIN = String.valueOf(UserRole.ADMIN);
-
-	public UserConfig(BCryptPasswordEncoder bCryptPasswordEncoder) {
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-	}
-
-	@Bean
-	public InMemoryUserDetailsManager userDetailsManager() {
-		UserDetails dimitris = User.builder()
-				.username("dimitris")
-				.password(bCryptPasswordEncoder.encode("100200300"))
-				.roles(USER)
-				.build();
-
-		UserDetails george = User.builder()
-				.username("george")
-				.password(bCryptPasswordEncoder.encode("100200300"))
-				.roles(USER, MANAGER)
-				.build();
-
-		UserDetails mary = User.builder()
-				.username("mary")
-				.password(bCryptPasswordEncoder.encode("test123"))
-				.roles(USER, MANAGER, ADMIN)
-				.build();
-
-		return new InMemoryUserDetailsManager(dimitris, mary, george);
-	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.authorizeHttpRequests(configurer ->
-				configurer
-						.requestMatchers(HttpMethod.GET, "/api/getUsers").hasRole(USER)
-						.requestMatchers(HttpMethod.POST, "/api/registerUser").hasRole(MANAGER)
-						.requestMatchers(HttpMethod.PUT, "/api//updateUser/**").hasRole(MANAGER)
-						.requestMatchers(HttpMethod.DELETE, "/api/deleteUser/**").hasRole(ADMIN)
+						configurer
+								.requestMatchers(HttpMethod.GET, "/", "/recipes/**", "/category/**").permitAll()
+								.requestMatchers(HttpMethod.POST, "/", "/recipes/**", "/category/**").permitAll()
+//			Authenticate the user
+								.requestMatchers(HttpMethod.GET, "/api/**").authenticated()
+								.requestMatchers(HttpMethod.POST, "/api/**").authenticated()
+								.requestMatchers(HttpMethod.PUT, "/api/**").authenticated()
+								.requestMatchers(HttpMethod.DELETE, "/api/**").authenticated()
+								.anyRequest().authenticated()
+		).formLogin(form ->
+				form
+						.loginPage("/showMyLoginPage")
+						.loginProcessingUrl("/authenticateTheUser")
+						.permitAll()
+		).logout(logout -> logout.permitAll()
 		);
-		// use HTTP Basic authentication
-		http.httpBasic(Customizer.withDefaults());
-
-		// disable Cross Site Request Forgery (CSRF)
-		// not required for stateless REST APIs that use POST, PUT, DELETE and/or PATCH
-		http.csrf(csrf -> csrf.disable());
-
 		return http.build();
+	}
+
+	@Bean
+	public UserDetailsManager userDetailsManager(DataSource dataSource) {
+		JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+// define query to retrieve a user by username
+		jdbcUserDetailsManager.setUsersByUsernameQuery(
+				"select username, password, active from user where username=?");
+// define query to retrieve the authorities/roles by username
+		jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(
+				"select username, role from authorities where username=?");
+
+		return jdbcUserDetailsManager;
 	}
 }
