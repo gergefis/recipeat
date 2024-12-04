@@ -23,7 +23,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/categories}">Categories</a>
+                    <a class="nav-link" th:href="@{/category}">Categories</a>
                 </li>
             </ul>
 
@@ -49,8 +49,6 @@
             <!--<div class="input-group-prepend">
                 <div class="input-group-text">-->
             <input type="checkbox"  th:text="|'${meal.strIngredient1}' - '${meal.strMeasure1}'|"/><br>
-            <!-- </div>
-         </div>-->
             <input type="checkbox"  th:text="|${meal.strIngredient2} - ${meal.strMeasure2}|"/><br>
 
         </div>

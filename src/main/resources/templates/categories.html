@@ -11,7 +11,7 @@
 
     <h1>Πατήστε για να δείτε τις κατηγορίες</h1>
 
-    <form class="search-form" th:action="@{/fetchMealNameByCategory}" method="POST">
+    <form class="search-form" th:action="@{/category/fetchMealNameByCategory}" method="POST">
         <input type="hidden" name="source" value="categories">
         <label for="category-select"> </label>
         <select name="strCategory" id="category-select" onchange="this.form.submit()">
