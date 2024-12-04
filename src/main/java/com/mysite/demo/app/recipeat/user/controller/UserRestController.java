@@ -26,7 +26,7 @@ public class UserRestController {
 		userService.save(theUser);
 	}
 
-	@PutMapping("/updateUser/{userId}")
+	@PutMapping("/updateUser")
 	public void updateUser(@RequestBody User theUser){
 		 userService.update(theUser);
 	}
@@ -36,10 +36,10 @@ public class UserRestController {
 		User tempUser = userService.findById(userId);
 
 		if(tempUser == null)
-			throw new RuntimeException("User id not found - " + userId);
-
-		userService.delete(userId);
-
-		return "Deleted employee id - " + userId;
+			return ("User id not found - " + userId);
+		else {
+			userService.delete(userId);
+			return "Deleted employee id - " + userId;
+		}
 	}
 }
