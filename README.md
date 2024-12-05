@@ -1,7 +1,7 @@
-# Recipe app to Eat quickly  - Recipeat
+# Find the best recipes quickly, with Recipeat
 - Το Project είναι demo απλώς για επίδειξη.
 Η εφαρμογή Recipeat είναι μια εφαρμογή πελάτης, η οποία θα καταναλώνει τα Web Services
-  της σελίδας TheMealDB σχετικά με στοιχεία γευμάτων.
+  της σελίδας TheMealDB, για συνταγές σχετικά με οδηγίες παρασκευής σγευμάτων.
 
 ## Τεχνολογίες που χρησιμοποιήθηκαν για την εκτέλεση του έργου
 -- Δημιουργήθηκε με Spring Boot 3.3.0, MySQL και Maven για το BackEnd κομμάτι. Για το View επέλεξα το thymeleaf για τη δημιουργία HTML σελίδων. CSS και Bootstrap για το style. Κάποιες μικρές λειτουργικότητες με vanilla JavaScript.
